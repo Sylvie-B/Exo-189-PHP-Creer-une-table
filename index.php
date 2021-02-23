@@ -77,14 +77,26 @@ try {
             prenom VARCHAR(30) NOT NULL,
             email VARCHAR(30) NOT NULL,
             password VARCHAR(30) NOT NULL,
-            adresse VARCHAR(30) NOT NULL,
+            adresse VARCHAR(60) NOT NULL,
             code_postal SMALLINT UNSIGNED NOT NULL,
             pays VARCHAR(30) NOT NULL,
             date_join DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ";
+
+    $sql2 = "
+        CREATE TABLE produit (
+            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            titre VARCHAR(60) NOT NULL,
+            prix DOUBLE UNSIGNED NOT NULL,
+            short_description VARCHAR(255) NOT NULL,
+            description TEXT
+        )
+    ";
+
     $conn->exec($sql);
-    echo "table créée";
+    $conn->exec($sql2);
+    echo "2 tables créées";
 }
 catch(PDOException $e){
     echo "erreur". $e->getMessage();

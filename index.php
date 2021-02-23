@@ -61,7 +61,31 @@
 
 // TODO Votre code ici.
 
+$server = 'localhost';
+$user = 'root';
+$password = '';
+$db = 'table_test_php';
+
 try {
-    ...
+    $conn = new PDO("mysql:host=$server;dbname=$db;charset=utf8", $user, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "
+        CREATE TABLE utilisateur (
+            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            nom VARCHAR(30) NOT NULL,
+            prenom VARCHAR(30) NOT NULL,
+            email VARCHAR(30) NOT NULL,
+            password VARCHAR(30) NOT NULL,
+            adresse VARCHAR(30) NOT NULL,
+            code_postal SMALLINT UNSIGNED NOT NULL,
+            pays VARCHAR(30) NOT NULL,
+            date_join DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    ";
+    $conn->exec($sql);
+    echo "table créée";
 }
-catch...
+catch(PDOException $e){
+    echo "erreur". $e->getMessage();
+}
